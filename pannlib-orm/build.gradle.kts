@@ -7,19 +7,16 @@ dependencies {
     api("com.zaxxer:HikariCP:5.1.0")
     api("org.slf4j:slf4j-api:2.0.16")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1")
-
     api("jakarta.persistence:jakarta.persistence-api:3.1.0")
     api("jakarta.validation:jakarta.validation-api:3.1.0")
-
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation("org.postgresql:postgresql:42.7.4")
     implementation("org.xerial:sqlite-jdbc:3.46.1.0")
-
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 }
 
-val fatJar = tasks.register<Jar>("fatJar") {
+tasks.jar {
     archiveClassifier.set("")
     from(sourceSets.main.get().output)
     dependsOn(configurations.runtimeClasspath)
@@ -32,19 +29,12 @@ val fatJar = tasks.register<Jar>("fatJar") {
     exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 }
 
-tasks.jar {
-
-}
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-
             artifact(tasks["sourcesJar"])
             artifact(tasks["javadocJar"])
-            artifact(fatJar.get())
-
             pom {
                 name.set("PannLib ORM")
                 description.set("Lightweight, standalone ORM for Java – MySQL, PostgreSQL, SQLite bundled")
@@ -71,7 +61,6 @@ publishing {
             }
         }
     }
-
     repositories {
         maven {
             name = "GitHubPackages"
@@ -86,11 +75,11 @@ publishing {
 }
 
 tasks.build {
-    dependsOn(fatJar)
+    dependsOn("jar")
 }
 
 afterEvaluate {
     tasks.named("generateMetadataFileForMavenPublication") {
-        dependsOn(fatJar)
+        dependsOn("jar")
     }
 }
