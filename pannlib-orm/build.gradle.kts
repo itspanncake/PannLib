@@ -31,6 +31,10 @@ val fatJar = tasks.register<Jar>("fatJar") {
     exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 }
 
+tasks.named("generateMetadataFileForMavenPublication") {
+    dependsOn(fatJar)
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
