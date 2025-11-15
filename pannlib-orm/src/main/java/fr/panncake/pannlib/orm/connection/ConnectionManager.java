@@ -3,6 +3,7 @@ package fr.panncake.pannlib.orm.connection;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import fr.panncake.pannlib.orm.config.DatabaseConfig;
+import fr.panncake.pannlib.orm.exception.DatabaseException;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

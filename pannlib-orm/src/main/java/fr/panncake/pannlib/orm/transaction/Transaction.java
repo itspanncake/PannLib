@@ -20,19 +20,19 @@ public class Transaction implements AutoCloseable {
             this.connection.setAutoCommit(false);
             this.active = true;
         } catch (SQLException e) {
-            throw new DatabaseException("Impossible de démarrer la transaction", e);
+            throw new DatabaseException("Cannot start transaction", e);
         }
     }
 
     public void commit() {
         if (!active) {
-            throw new IllegalStateException("Transaction déjà terminée");
+            throw new IllegalStateException("Transaction already finished");
         }
         try {
             connection.commit();
             committed = true;
         } catch (SQLException e) {
-            throw new DatabaseException("Échec du commit", e);
+            throw new DatabaseException("Commit failed", e);
         } finally {
             closeConnection();
         }
@@ -46,7 +46,7 @@ public class Transaction implements AutoCloseable {
             connection.rollback();
             rolledBack = true;
         } catch (SQLException e) {
-            throw new DatabaseException("Échec du rollback", e);
+            throw new DatabaseException("Rollback failed", e);
         } finally {
             closeConnection();
         }
@@ -66,7 +66,7 @@ public class Transaction implements AutoCloseable {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Erreur lors de la fermeture de la connexion", e);
+            throw new DatabaseException("Error while closing connection", e);
         } finally {
             active = false;
         }

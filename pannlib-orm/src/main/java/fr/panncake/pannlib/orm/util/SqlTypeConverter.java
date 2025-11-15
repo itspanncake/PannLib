@@ -47,7 +47,7 @@ public final class SqlTypeConverter {
         if (targetType == UUID.class) return javaValue.toString();
         if (targetType == byte[].class) return javaValue;
 
-        throw new DatabaseException("Type non supporté pour conversion SQL: " + javaValue.getClass());
+        throw new DatabaseException("Type not supported for SQL conversion: " + javaValue.getClass());
     }
 
     public static <T> T fromSqlObject(ResultSet rs, String columnName, Class<T> targetType) throws SQLException {
@@ -83,6 +83,6 @@ public final class SqlTypeConverter {
         }
         if (targetType == byte[].class) return targetType.cast(value);
 
-        throw new DatabaseException("Type non supporté pour conversion depuis SQL: " + targetType);
+        throw new DatabaseException("Type not supported for SQL conversion: " + targetType);
     }
 }

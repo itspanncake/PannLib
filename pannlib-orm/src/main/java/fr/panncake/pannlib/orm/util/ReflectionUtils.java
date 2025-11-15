@@ -17,9 +17,9 @@ public final class ReflectionUtils {
             constructor.setAccessible(true);
             return constructor.newInstance();
         } catch (NoSuchMethodException e) {
-            throw new DatabaseException("Aucun constructeur sans paramètre pour " + clazz.getName(), e);
+            throw new DatabaseException("Any constructor on parameter " + clazz.getName(), e);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new DatabaseException("Échec de l'instanciation de " + clazz.getName(), e);
+            throw new DatabaseException("Failure to instantiate " + clazz.getName(), e);
         }
     }
 
@@ -28,7 +28,7 @@ public final class ReflectionUtils {
             field.setAccessible(true);
             return field.get(instance);
         } catch (IllegalAccessException e) {
-            throw new DatabaseException("Impossible d'accéder au champ " + field.getName(), e);
+            throw new DatabaseException("Unable to access the field " + field.getName(), e);
         }
     }
 
@@ -37,7 +37,7 @@ public final class ReflectionUtils {
             field.setAccessible(true);
             field.set(instance, value);
         } catch (IllegalAccessException e) {
-            throw new DatabaseException("Impossible de définir le champ " + field.getName(), e);
+            throw new DatabaseException("Unable to set the field " + field.getName(), e);
         }
     }
 

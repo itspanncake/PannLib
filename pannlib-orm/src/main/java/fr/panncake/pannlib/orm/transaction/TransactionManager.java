@@ -24,7 +24,7 @@ public final class TransactionManager {
                     if (newTx.isActive()) {
                         newTx.rollback();
                     }
-                    throw e instanceof DatabaseException ? (DatabaseException) e : new DatabaseException("Opération en transaction échouée", e);
+                    throw e instanceof DatabaseException ? (DatabaseException) e : new DatabaseException("Transaction failed", e);
                 } finally {
                     CURRENT.remove();
                 }
@@ -49,7 +49,7 @@ public final class TransactionManager {
                     if (newTx.isActive()) {
                         newTx.rollback();
                     }
-                    throw e instanceof DatabaseException ? (DatabaseException) e : new DatabaseException("Opération en transaction échouée", e);
+                    throw e instanceof DatabaseException ? (DatabaseException) e : new DatabaseException("Transaction failed", e);
                 } finally {
                     CURRENT.remove();
                 }
@@ -62,7 +62,7 @@ public final class TransactionManager {
     public static Transaction currentTransaction() {
         Transaction tx = CURRENT.get();
         if (tx == null) {
-            throw new IllegalStateException("Aucune transaction active sur ce thread");
+            throw new IllegalStateException("Any transaction found on this thread");
         }
         return tx;
     }
