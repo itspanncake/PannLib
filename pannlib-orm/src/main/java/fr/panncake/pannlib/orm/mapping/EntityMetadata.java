@@ -4,9 +4,7 @@ import fr.panncake.pannlib.orm.annotations.*;
 import lombok.Getter;
 
 import java.lang.reflect.Field;
-import java.util.IdentityHashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class EntityMetadata {
@@ -15,6 +13,7 @@ public class EntityMetadata {
     private final Field idField;
     private final Map<String, Field> columnFields;
     private final Map<Field, String> fieldToColumn;
+    private final List<String> primaryKeys = new ArrayList<>();
 
     public EntityMetadata(Class<?> entityClass) {
         if (!entityClass.isAnnotationPresent(Entity.class)) {
@@ -56,6 +55,14 @@ public class EntityMetadata {
                 String columnName = resolveColumnName(field);
                 columnFields.put(columnName, field);
                 fieldToColumn.put(field, columnName);
+
+                Column column = field.getAnnotation(Column.class);
+                if (column != null && column.primaryKey()) {
+                    primaryKeys.add(columnName);
+                }
+                if (field.isAnnotationPresent(Id.class)) {
+                    primaryKeys.add(columnName);
+                }
             }
         }
     }
@@ -71,4 +78,6 @@ public class EntityMetadata {
     public boolean isAutoIncrementId() {
         return idField.getAnnotation(Id.class).autoIncrement();
     }
+
+    public String getIdColumnName() { return fieldToColumn.get(idField); }
 }

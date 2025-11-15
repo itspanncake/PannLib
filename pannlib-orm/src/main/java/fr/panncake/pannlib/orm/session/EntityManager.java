@@ -4,6 +4,7 @@ import fr.panncake.pannlib.orm.connection.ConnectionManager;
 import fr.panncake.pannlib.orm.exception.DatabaseException;
 import fr.panncake.pannlib.orm.mapping.EntityMetadata;
 import fr.panncake.pannlib.orm.query.QueryBuilder;
+import fr.panncake.pannlib.orm.schema.SchemaManager;
 import fr.panncake.pannlib.orm.util.ReflectionUtils;
 import fr.panncake.pannlib.orm.util.SqlTypeConverter;
 import org.slf4j.Logger;
@@ -24,9 +25,11 @@ public class EntityManager {
     private final Executor asyncExecutor = Executors.newFixedThreadPool(
             Math.max(2, Runtime.getRuntime().availableProcessors())
     );
+    private final SchemaManager schemaManager;
 
     public EntityManager() {
         this.connectionManager = ConnectionManager.getInstance();
+        this.schemaManager = new SchemaManager(this.connectionManager);
     }
 
     public <T> void persist(T entity) {
@@ -125,6 +128,10 @@ public class EntityManager {
         });
     }
 
+    public <T> void createTable(Class<T> entityClass) {
+        schemaManager.ensureTable(entityClass);
+    }
+
     private <T> T mapResultSetToEntity(ResultSet rs, Class<T> clazz, EntityMetadata metadata) {
         try {
             T instance = ReflectionUtils.instantiate(clazz);
@@ -138,7 +145,7 @@ public class EntityManager {
             }
             return instance;
         } catch (Exception e) {
-            throw new DatabaseException("Échec du mapping ResultSet → entité", e);
+            throw new DatabaseException("Failed mapping ResultSet → entity", e);
         }
     }
 
