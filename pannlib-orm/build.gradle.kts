@@ -1,5 +1,6 @@
 plugins {
     id("java-library")
+    id("maven-publish")
 }
 
 dependencies {
@@ -31,14 +32,15 @@ val fatJar = tasks.register<Jar>("fatJar") {
     exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 }
 
-tasks.named("generateMetadataFileForMavenPublication") {
-    dependsOn(fatJar)
+tasks.jar {
+
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+
             artifact(tasks["sourcesJar"])
             artifact(tasks["javadocJar"])
             artifact(fatJar.get())
@@ -85,4 +87,10 @@ publishing {
 
 tasks.build {
     dependsOn(fatJar)
+}
+
+afterEvaluate {
+    tasks.named("generateMetadataFileForMavenPublication") {
+        dependsOn(fatJar)
+    }
 }
