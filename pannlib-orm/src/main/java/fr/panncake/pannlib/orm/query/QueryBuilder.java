@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.query;
+package fr.panncake.pannlib.orm.query;
 
 import fr.panncake.pannlib.orm.mapping.EntityMetadata;
 

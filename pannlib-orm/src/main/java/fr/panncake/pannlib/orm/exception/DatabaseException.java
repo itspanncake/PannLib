@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.exception;
+package fr.panncake.pannlib.orm.exception;
 
 public class DatabaseException extends RuntimeException {
     public DatabaseException(String message) {

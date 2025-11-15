@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.config;
+package fr.panncake.pannlib.orm.config;
 
 import lombok.Builder;
 

@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.entity;
+package fr.panncake.pannlib.orm.entity;
 
 public enum EntityState {
     DETACHED,

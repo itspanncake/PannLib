@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.session;
+package fr.panncake.pannlib.orm.session;
 
 import fr.panncake.pannlib.orm.connection.ConnectionManager;
 import fr.panncake.pannlib.orm.exception.DatabaseException;

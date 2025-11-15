@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.connection;
+package fr.panncake.pannlib.orm.connection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

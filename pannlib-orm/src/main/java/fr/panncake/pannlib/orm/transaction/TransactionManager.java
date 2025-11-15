@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.transaction;
+package fr.panncake.pannlib.orm.transaction;
 
 import fr.panncake.pannlib.orm.exception.DatabaseException;
 import org.slf4j.Logger;

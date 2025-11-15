@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.transaction;
+package fr.panncake.pannlib.orm.transaction;
 
 import fr.panncake.pannlib.orm.connection.ConnectionManager;
 import fr.panncake.pannlib.orm.exception.DatabaseException;

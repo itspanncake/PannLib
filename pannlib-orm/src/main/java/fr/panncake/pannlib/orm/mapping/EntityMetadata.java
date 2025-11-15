@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.mapping;
+package fr.panncake.pannlib.orm.mapping;
 
 import fr.panncake.pannlib.orm.annotations.*;
 import lombok.Getter;

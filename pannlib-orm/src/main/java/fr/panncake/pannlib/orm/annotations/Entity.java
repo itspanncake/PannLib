@@ -1,4 +1,4 @@
-package fr.panncake.pannlib.orm.orm.annotations;
+package fr.panncake.pannlib.orm.annotations;
 
 import java.lang.annotation.*;
 
