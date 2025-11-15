@@ -7,17 +7,19 @@ dependencies {
     api("com.zaxxer:HikariCP:5.1.0")
     api("org.slf4j:slf4j-api:2.0.16")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1")
+
     api("jakarta.persistence:jakarta.persistence-api:3.1.0")
     api("jakarta.validation:jakarta.validation-api:3.1.0")
+
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation("org.postgresql:postgresql:42.7.4")
     implementation("org.xerial:sqlite-jdbc:3.46.1.0")
+
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 }
 
 tasks.jar {
-    archiveClassifier.set("")
     from(sourceSets.main.get().output)
     dependsOn(configurations.runtimeClasspath)
     from({
@@ -33,7 +35,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
-            artifact(tasks["sourcesJar"])
+
             pom {
                 name.set("PannLib ORM")
                 description.set("Lightweight, standalone ORM for Java – MySQL, PostgreSQL, SQLite bundled")
@@ -60,6 +62,7 @@ publishing {
             }
         }
     }
+
     repositories {
         maven {
             name = "GitHubPackages"
