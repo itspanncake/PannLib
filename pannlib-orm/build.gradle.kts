@@ -34,7 +34,6 @@ publishing {
         create<MavenPublication>("maven") {
             from(components["java"])
             artifact(tasks["sourcesJar"])
-            artifact(tasks["javadocJar"])
             pom {
                 name.set("PannLib ORM")
                 description.set("Lightweight, standalone ORM for Java – MySQL, PostgreSQL, SQLite bundled")
